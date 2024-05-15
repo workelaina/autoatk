@@ -1,7 +1,49 @@
-data/
-/__pycache__/
-*/__pycache__/
+.vscode/
+.idea/
 
+# python
 build/
 dist/
 *.egg-info/
+*.egg
+*.py[cod]
+__pycache__/
+*.so
+*~
+
+# executable
+*.exe
+*.out
+*.a
+*.lib
+*.dll
+
+# image
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.bmp
+*.gif
+
+# archive
+*.tar
+*.gz
+*.tgz
+*.rar
+*.zip
+*.7z
+*ubyte
+
+archive/
+*/temp/
+tempCodeRunnerFile.*
+*.diff
+
+data/
+*.csv
+log
+*.log
+result/
+# !result/*/*.csv
+
