@@ -12,7 +12,7 @@ from autoattack.state import EvaluationState
 class AutoAttack():
     def __init__(self, model, norm='Linf', eps=.3, seed=None, verbose=False,
                  attacks_to_run=[], version='standard', is_tf_model=False,
-                 device='cuda', log_path=None, n_iter=40, san=500):
+                 device='cuda', log_path=None, n_iter=40, san=500, sa_re=False):
         self.model = model
         self.norm = norm
         assert norm in ['Linf', 'L2', 'L1']
@@ -40,7 +40,7 @@ class AutoAttack():
         
             from .square import SquareAttack
             self.square = SquareAttack(self.model, p_init=.8, n_queries=san, eps=self.epsilon, norm=self.norm,
-                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=True)
+                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=sa_re)
             # https://github.com/fra31/auto-attack/issues/106
                 
             from .autopgd_base import APGDAttack_targeted
@@ -60,7 +60,7 @@ class AutoAttack():
         
             from .square import SquareAttack
             self.square = SquareAttack(self.model.predict, p_init=.8, n_queries=san, eps=self.epsilon, norm=self.norm,
-                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=True)
+                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=sa_re)
                 
             from .autopgd_base import APGDAttack_targeted
             self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
