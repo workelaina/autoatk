@@ -9,5 +9,6 @@ AutoAttack:
 https://github.com/fra31/auto-attack
 
 ```sh
+python -m pip uninstall autoattack
 python -m pip install git+https://github.com/workelaina/autoatk
 ```
