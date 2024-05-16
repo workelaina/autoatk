@@ -10,9 +10,9 @@ from autoattack.state import EvaluationState
 
 
 class AutoAttack():
-    def __init__(self, model, norm='Linf', eps=.3, seed=None, verbose=True,
+    def __init__(self, model, norm='Linf', eps=.3, seed=None, verbose=False,
                  attacks_to_run=[], version='standard', is_tf_model=False,
-                 device='cuda', log_path=None):
+                 device='cuda', log_path=None, n_iter=40):
         self.model = model
         self.norm = norm
         assert norm in ['Linf', 'L2', 'L1']
@@ -30,39 +30,39 @@ class AutoAttack():
         
         if not self.is_tf_model:
             from .autopgd_base import APGDAttack
-            self.apgd = APGDAttack(self.model, n_restarts=5, n_iter=100, verbose=False,
+            self.apgd = APGDAttack(self.model, n_restarts=5, n_iter=n_iter, verbose=False,
                 eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed,
                 device=self.device, logger=self.logger)
             
             from .fab_pt import FABAttack_PT
-            self.fab = FABAttack_PT(self.model, n_restarts=5, n_iter=100, eps=self.epsilon, seed=self.seed,
+            self.fab = FABAttack_PT(self.model, n_restarts=5, n_iter=n_iter, eps=self.epsilon, seed=self.seed,
                 norm=self.norm, verbose=False, device=self.device)
         
             from .square import SquareAttack
-            self.square = SquareAttack(self.model, p_init=.8, n_queries=5000, eps=self.epsilon, norm=self.norm,
+            self.square = SquareAttack(self.model, p_init=.8, n_queries=n_iter, eps=self.epsilon, norm=self.norm,
                 n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=False)
                 
             from .autopgd_base import APGDAttack_targeted
-            self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=100, verbose=False,
+            self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
                 eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
                 logger=self.logger)
     
         else:
             from .autopgd_base import APGDAttack
-            self.apgd = APGDAttack(self.model, n_restarts=5, n_iter=100, verbose=False,
+            self.apgd = APGDAttack(self.model, n_restarts=5, n_iter=n_iter, verbose=False,
                 eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
                 is_tf_model=True, logger=self.logger)
             
             from .fab_tf import FABAttack_TF
-            self.fab = FABAttack_TF(self.model, n_restarts=5, n_iter=100, eps=self.epsilon, seed=self.seed,
+            self.fab = FABAttack_TF(self.model, n_restarts=5, n_iter=n_iter, eps=self.epsilon, seed=self.seed,
                 norm=self.norm, verbose=False, device=self.device)
         
             from .square import SquareAttack
-            self.square = SquareAttack(self.model.predict, p_init=.8, n_queries=5000, eps=self.epsilon, norm=self.norm,
+            self.square = SquareAttack(self.model.predict, p_init=.8, n_queries=n_iter, eps=self.epsilon, norm=self.norm,
                 n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=False)
                 
             from .autopgd_base import APGDAttack_targeted
-            self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=100, verbose=False,
+            self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
                 eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
                 is_tf_model=True, logger=self.logger)
     
