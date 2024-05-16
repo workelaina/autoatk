@@ -40,7 +40,8 @@ class AutoAttack():
         
             from .square import SquareAttack
             self.square = SquareAttack(self.model, p_init=.8, n_queries=n_iter, eps=self.epsilon, norm=self.norm,
-                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=False)
+                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=True)
+            # https://github.com/fra31/auto-attack/issues/106
                 
             from .autopgd_base import APGDAttack_targeted
             self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
@@ -59,7 +60,7 @@ class AutoAttack():
         
             from .square import SquareAttack
             self.square = SquareAttack(self.model.predict, p_init=.8, n_queries=n_iter, eps=self.epsilon, norm=self.norm,
-                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=False)
+                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=True)
                 
             from .autopgd_base import APGDAttack_targeted
             self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
