@@ -46,7 +46,8 @@ def check_range_output(model, x, alpha=1e-5, logger=None):
         output = model(x)
     fl = [output.max() < 1. + alpha, output.min() >  -alpha,
         ((output.sum(-1) - 1.).abs() < alpha).all()]
-    if all(fl):
+    if all(fl) and False:
+        # https://github.com/fra31/auto-attack/issues/102
         msg = 'it seems that the output is a probability distribution,' +\
             ' please be sure that the logits are used!' + \
             f' See {checks_doc_path} for details.'
