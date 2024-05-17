@@ -154,6 +154,7 @@ class AutoAttack():
             x_adv = x_orig.clone().detach()
             startt = time.time()
             for attack in attacks_to_run:
+                print(attack)
                 # item() is super important as pytorch int division uses floor rounding
                 num_robust = torch.sum(robust_flags).item()
 
@@ -318,7 +319,7 @@ class AutoAttack():
             self.apgd_targeted.n_restarts = 1
             self.fab.n_target_classes = 9
             #self.apgd_targeted.n_target_classes = 9
-            self.square.n_queries = 5000
+            # self.square.n_queries = 5000
         
         elif version == 'plus':
             self.attacks_to_run = ['apgd-ce', 'apgd-dlr', 'fab', 'square', 'apgd-t', 'fab-t']
