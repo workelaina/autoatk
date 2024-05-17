@@ -300,6 +300,7 @@ class SquareAttack():
                             '- loss={:.3f}'.format(loss_min.mean()))
 
                     if ind_succ.numel() == n_ex_total:
+                        print(i_iter)
                         break
               
             elif self.norm == 'L2':
@@ -417,6 +418,7 @@ class SquareAttack():
                     assert (x_best != x_best).sum() == 0
                     
                     if ind_succ.numel() == n_ex_total:
+                        print(i_iter)
                         break
 
             elif self.norm == 'L1':
@@ -542,6 +544,7 @@ class SquareAttack():
                     assert (x_best != x_best).sum() == 0
         
                     if ind_succ.numel() == n_ex_total:
+                        print(i_iter)
                         break
         
         return n_queries, x_best
