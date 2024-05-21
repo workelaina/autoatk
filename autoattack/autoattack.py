@@ -309,7 +309,7 @@ class AutoAttack():
             self.attacks_to_run = ['apgd-ce', 'apgd-t', 'fab-t', 'square']
             if self.norm in ['Linf', 'L2']:
                 self.apgd.n_restarts = 1
-                self.apgd_targeted.n_target_classes = 9
+                self.apgd_targeted.n_target_classes = 1
             elif self.norm in ['L1']:
                 self.apgd.use_largereps = True
                 self.apgd_targeted.use_largereps = True
@@ -317,8 +317,8 @@ class AutoAttack():
                 self.apgd_targeted.n_target_classes = 5
             self.fab.n_restarts = 1
             self.apgd_targeted.n_restarts = 1
-            self.fab.n_target_classes = 9
-            #self.apgd_targeted.n_target_classes = 9
+            self.fab.n_target_classes = 1
+            self.apgd_targeted.n_target_classes = 1
             # self.square.n_queries = 5000
         
         elif version == 'plus':
