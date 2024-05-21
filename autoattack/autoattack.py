@@ -12,7 +12,7 @@ from autoattack.state import EvaluationState
 class AutoAttack():
     def __init__(self, model, norm='Linf', eps=.3, seed=None, verbose=False,
                  attacks_to_run=[], version='standard', is_tf_model=False,
-                 device='cuda', log_path=None, n_iter=40, san=500, sa_re=False):
+                 device='cuda', log_path=None, n_iter=40, san=500, sa_re=True):
         self.model = model
         self.norm = norm
         assert norm in ['Linf', 'L2', 'L1']
