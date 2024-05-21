@@ -494,8 +494,8 @@ class APGDAttack():
         
         startt = time.time()
         if not best_loss:
-            torch.random.manual_seed(self.seed)
-            torch.cuda.random.manual_seed(self.seed)
+            # torch.random.manual_seed(self.seed)
+            # torch.cuda.random.manual_seed(self.seed)
 
             for counter in range(self.n_restarts):
                 ind_to_fool = acc.nonzero().squeeze()
@@ -637,11 +637,9 @@ class APGDAttack_targeted(APGDAttack):
 
         startt = time.time()
 
-        torch.random.manual_seed(self.seed)
-        torch.cuda.random.manual_seed(self.seed)
+        # torch.random.manual_seed(self.seed)
+        # torch.cuda.random.manual_seed(self.seed)
 
-        #
-        
         if self.use_largereps:
             epss = [3. * self.eps_orig, 2. * self.eps_orig, 1. * self.eps_orig]
             iters = [.3 * self.n_iter_orig, .3 * self.n_iter_orig,

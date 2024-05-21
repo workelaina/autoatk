@@ -271,8 +271,8 @@ class FABAttack():
 
             startt = time.time()
 
-            torch.random.manual_seed(self.seed)
-            torch.cuda.random.manual_seed(self.seed)
+            # torch.random.manual_seed(self.seed)
+            # torch.cuda.random.manual_seed(self.seed)
 
             if not self.targeted:
                 for counter in range(self.n_restarts):

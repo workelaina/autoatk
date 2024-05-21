@@ -584,8 +584,8 @@ class SquareAttack():
 
         startt = time.time()
 
-        torch.random.manual_seed(self.seed)
-        torch.cuda.random.manual_seed(self.seed)
+        # torch.random.manual_seed(self.seed)
+        # torch.cuda.random.manual_seed(self.seed)
 
         for counter in range(self.n_restarts):
             ind_to_fool = acc.nonzero().squeeze()
