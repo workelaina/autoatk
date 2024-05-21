@@ -328,6 +328,8 @@ class AutoAttack():
         if self.outputs_size < 4:
             if 'apgd-t' in self.attacks_to_run:
                 self.attacks_to_run.remove('apgd-t')
+            if 'square' in self.attacks_to_run:
+                self.attacks_to_run.remove('square')
             if self.outputs_size < 3:
                 if 'apgd-dlr' in self.attacks_to_run:
                     self.attacks_to_run.remove('apgd-dlr')
