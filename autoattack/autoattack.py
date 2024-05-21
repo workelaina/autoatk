@@ -21,7 +21,7 @@ class AutoAttack():
         self.verbose = verbose
         self.attacks_to_run = attacks_to_run
         self.version = version
-        self.is_tf_model = is_tf_model
+        self.is_tf_model = False
         self.device = device
         self.logger = Logger(log_path)
 
@@ -49,23 +49,7 @@ class AutoAttack():
                 logger=self.logger)
     
         else:
-            from .autopgd_base import APGDAttack
-            self.apgd = APGDAttack(self.model, n_restarts=5, n_iter=n_iter, verbose=False,
-                eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
-                is_tf_model=True, logger=self.logger)
-            
-            from .fab_tf import FABAttack_TF
-            self.fab = FABAttack_TF(self.model, n_restarts=5, n_iter=n_iter, eps=self.epsilon, seed=self.seed,
-                norm=self.norm, verbose=False, device=self.device)
-        
-            from .square import SquareAttack
-            self.square = SquareAttack(self.model.predict, p_init=.8, n_queries=san, eps=self.epsilon, norm=self.norm,
-                n_restarts=1, seed=self.seed, verbose=False, device=self.device, resc_schedule=sa_re)
-                
-            from .autopgd_base import APGDAttack_targeted
-            self.apgd_targeted = APGDAttack_targeted(self.model, n_restarts=1, n_iter=n_iter, verbose=False,
-                eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
-                is_tf_model=True, logger=self.logger)
+            raise ValueError('tf')
     
         if version in ['standard', 'plus', 'rand']:
             self.set_version(version)
@@ -74,7 +58,8 @@ class AutoAttack():
         if not self.is_tf_model:
             return self.model(x)
         else:
-            return self.model.predict(x)
+            raise ValueError('tf')
+
     
     def get_seed(self):
         return time.time() if self.seed is None else self.seed
